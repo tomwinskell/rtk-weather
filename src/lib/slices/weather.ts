@@ -1,11 +1,28 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// interface WeatherState {}
+type WeatherObject = {
+  dt: number;
+  main: {
+    temp: number;
+    pressure: number;
+    humidity: number;
+  };
+};
 
-const initialState = {};
+interface WeatherState {
+  weather: WeatherObject[];
+  status: 'idle' | 'pending' | 'succeeded' | 'failed';
+  error: string | null;
+}
+
+const initialState: WeatherState = {
+  weather: [],
+  status: 'idle',
+  error: null,
+};
 
 const weatherSlice = createSlice({
-  name: 'posts',
+  name: 'weather',
   initialState,
   reducers: {},
 });
