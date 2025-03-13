@@ -1,30 +1,21 @@
 import { useAppSelector } from '@/lib/hooks';
 import { Chart } from './Chart';
-import { selectWeather, WeatherObject } from '@/lib/slices/weather';
+import { LocationObject, selectWeather } from '@/lib/slices/weather';
+import { toChartData } from '@/app/helpers/toChartData';
 
 export const Weather = (): React.JSX.Element => {
   const weather = useAppSelector(selectWeather);
 
-  type weatherParams = 'temp' | 'pressure' | 'humidity';
-
-  const toDataArray = (
-    weather: WeatherObject[],
-    weatherParam: weatherParams
-  ) => {
-    return weather.reduce(
-      (array: number[], current: WeatherObject): number[] => {
-        array.push(current.main[weatherParam]);
-        return array;
-      },
-      []
-    );
-  };
-
   return (
-    <div className="flex flex-row">
-      <Chart data={toDataArray(weather, 'temp')} />
-      <Chart data={toDataArray(weather, 'pressure')} />
-      <Chart data={toDataArray(weather, 'humidity')} />
-    </div>
+    <>
+      {weather.map((location: LocationObject) => (
+        <div key={location.city} className="flex flex-row">
+          <div>{location.city}</div>
+          <Chart chartData={toChartData(location.chartData, 'temp')} />
+          <Chart chartData={toChartData(location.chartData, 'pressure')} />
+          <Chart chartData={toChartData(location.chartData, 'humidity')} />
+        </div>
+      ))}
+    </>
   );
 };

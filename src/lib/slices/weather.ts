@@ -5,8 +5,7 @@ import { RootState } from '../store';
 
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
-export type WeatherObject = {
-  dt: number;
+export type ForecastObject = {
   main: {
     temp: number;
     pressure: number;
@@ -14,25 +13,35 @@ export type WeatherObject = {
   };
 };
 
-type LatLon = {
+export type LocationObject = {
+  city: string;
+  chartData: ForecastObject[];
+};
+
+type GeoLocation = {
   lat: number;
   lon: number;
 };
 
 interface WeatherState {
-  weather: WeatherObject[];
+  weather: LocationObject[];
   status: 'idle' | 'pending' | 'succeeded' | 'failed';
   error: string | null;
 }
 
 export const fetchWeather = createAppAsyncThunk(
   'weather/fetchWeather',
-  async (coords: LatLon) => {
-    if (coords) {
-      const response = await axios.get<{ list: WeatherObject[] }>(
-        `https://api.openweathermap.org/data/2.5/forecast?lat=${coords.lat}&lon=${coords.lon}&appid=${API_KEY}`
+  async (city: string) => {
+    if (city) {
+      const geoLocation = await axios.get<GeoLocation[]>(
+        `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${API_KEY}`
       );
-      return response.data.list;
+      const { lat, lon } = geoLocation.data[0];
+      const weatherData = await axios.get<{ list: ForecastObject[] }>(
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`
+      );
+
+      return { city, chartData: weatherData.data.list };
     }
   }
 );
@@ -54,7 +63,10 @@ const weatherSlice = createSlice({
       })
       .addCase(fetchWeather.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.weather.push(...(action.payload as WeatherObject[]));
+        state.weather.push(action.payload as LocationObject);
+        if (state.weather.length > 3) {
+          state.weather.shift();
+        }
       })
       .addCase(fetchWeather.rejected, (state, action) => {
         state.status = 'failed';
@@ -67,4 +79,3 @@ export { weatherSlice };
 
 export const selectWeatherStatus = (state: RootState) => state.weather.status;
 export const selectWeather = (state: RootState) => state.weather.weather;
-
