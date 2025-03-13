@@ -17,12 +17,13 @@ export const Form = (): React.JSX.Element => {
   }, []);
 
   return (
-    <div>
+    <div className='mb-5'>
       {cities.length === 0 ? (
         <p>Loading...</p>
       ) : (
-        <>
+        <div className='flex gap-5'>
           <Select
+          className='w-7/8 rounded-md'
             name="city"
             placeholder="Select or type a city name..."
             options={cities}
@@ -36,11 +37,11 @@ export const Form = (): React.JSX.Element => {
           />
           <button
             onClick={() => dispatch(fetchWeather(selectedCity))}
-            className="bg-blue-600"
+            className="bg-blue-600 text-white rounded-md px-5 w-1/8 text-nowrap"
           >
             Click Me
           </button>
-        </>
+        </div>
       )}
     </div>
   );

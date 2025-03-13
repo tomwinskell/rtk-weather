@@ -63,10 +63,12 @@ const weatherSlice = createSlice({
       })
       .addCase(fetchWeather.fulfilled, (state, action) => {
         state.status = 'succeeded';
+        state.weather = state.weather.filter((location) => location.city !== action?.payload?.city)
         state.weather.push(action.payload as LocationObject);
         if (state.weather.length > 3) {
           state.weather.shift();
         }
+        state.weather = state.weather.reverse();
       })
       .addCase(fetchWeather.rejected, (state, action) => {
         state.status = 'failed';

@@ -14,7 +14,7 @@ export const Chart = ({
   const mean = useMemo(() => calculateMean(chartData), [chartData]);
 
   return (
-    <div className="w-100">
+    <div className="w-full text-center">
       {chartData.length === 0 ? (
         <p>Loading...</p>
       ) : (
@@ -23,7 +23,7 @@ export const Chart = ({
             <SparklinesLine />
             <SparklinesReferenceLine type="mean" />
           </Sparklines>
-          <div>{mean}</div>
+          <div className=''>{mean}</div>
         </>
       )}
     </div>
