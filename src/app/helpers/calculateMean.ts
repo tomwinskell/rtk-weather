@@ -8,6 +8,10 @@ const divide = (divisor: number, total: number): number => {
   return total / divisor;
 };
 
+const round = (toRound: number): number => {
+  return Math.round(toRound);
+};
+
 export const calculateMean = (numbers: number[]) => {
-  return flow(sum, divide.bind(this, numbers.length))(numbers);
+  return flow(sum, divide.bind(this, numbers.length), round)(numbers);
 };
