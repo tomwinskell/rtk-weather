@@ -2,6 +2,7 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { fetchWeather, selectWeatherStatus } from '@/lib/slices/weather';
+import { Weather } from './ui/Weather';
 
 export default function Home() {
   const dispatch = useAppDispatch();
@@ -11,5 +12,5 @@ export default function Home() {
       dispatch(fetchWeather({ lat: 44.34, lon: 10.99 }));
     }
   }, [dispatch, weatherStatus]);
-  return <div></div>;
+  return <div><Weather/></div>;
 }

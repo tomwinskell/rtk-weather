@@ -5,7 +5,7 @@ import { RootState } from '../store';
 
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
-type WeatherObject = {
+export type WeatherObject = {
   dt: number;
   main: {
     temp: number;
@@ -28,7 +28,6 @@ interface WeatherState {
 export const fetchWeather = createAppAsyncThunk(
   'weather/fetchWeather',
   async (coords: LatLon) => {
-    console.log(API_KEY);
     if (coords) {
       const response = await axios.get<{ list: WeatherObject[] }>(
         `https://api.openweathermap.org/data/2.5/forecast?lat=${coords.lat}&lon=${coords.lon}&appid=${API_KEY}`
@@ -64,8 +63,8 @@ const weatherSlice = createSlice({
   },
 });
 
-// export const { addPost, deletePost } = postsSlice.actions;
-
 export { weatherSlice };
 
-export const selectWeatherStatus = (state: RootState) => state.weather.status
+export const selectWeatherStatus = (state: RootState) => state.weather.status;
+export const selectWeather = (state: RootState) => state.weather.weather;
+
