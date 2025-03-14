@@ -25,7 +25,7 @@ export const Form = (): React.JSX.Element => {
           <SelectField options={cities} handleSelect={setSelectedCity}/>
           <button
             onClick={() => dispatch(fetchWeather(selectedCity))}
-            className="bg-blue-600 text-white rounded-md px-5 py-2 md: py-0 text-nowrap"
+            className="bg-blue-600 text-white rounded-md px-5 py-2 md:py-0 text-nowrap"
           >
             Click Me
           </button>
