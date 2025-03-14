@@ -38,7 +38,7 @@ export const fetchWeather = createAppAsyncThunk(
       );
       const { lat, lon } = geoLocation.data[0];
       const weatherData = await axios.get<{ list: ForecastObject[] }>(
-        `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`
       );
 
       return { city, chartData: weatherData.data.list };
@@ -63,12 +63,13 @@ const weatherSlice = createSlice({
       })
       .addCase(fetchWeather.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.weather = state.weather.filter((location) => location.city !== action?.payload?.city)
+        state.weather = state.weather.filter(
+          (location) => location.city !== action?.payload?.city
+        );
         state.weather.push(action.payload as LocationObject);
         if (state.weather.length > 3) {
           state.weather.shift();
         }
-        state.weather = state.weather.reverse();
       })
       .addCase(fetchWeather.rejected, (state, action) => {
         state.status = 'failed';

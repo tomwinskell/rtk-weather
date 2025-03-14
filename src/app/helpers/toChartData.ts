@@ -1,15 +1,15 @@
-import {WeatherObject } from '@/lib/slices/weather';
+import { ForecastObject } from '@/lib/slices/weather';
 
 type weatherParams = 'temp' | 'pressure' | 'humidity';
 
-const pushToArray = <T,>(array: T[], element: T): T[] => [...array, element];
+const pushToArray = <T>(array: T[], element: T): T[] => [...array, element];
 
 export const toChartData = (
-  weather: WeatherObject[],
+  weather: ForecastObject[],
   weatherParam: weatherParams
 ) => {
   return weather.reduce(
-    (array: number[], current: WeatherObject): number[] => {
+    (array: number[], current: ForecastObject): number[] => {
       return pushToArray(array, current.main[weatherParam]);
     },
     []

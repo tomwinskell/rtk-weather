@@ -9,7 +9,7 @@ export const Weather = (): React.JSX.Element => {
 
   return (
     <>
-      {weather.map((location: LocationObject) => (
+      {weather.slice().reverse().map((location: LocationObject) => (
         <div
           key={uuidv4()}
           className="mb-5 border border-slate-300 rounded-2xl shadow-xl p-5"
@@ -18,9 +18,21 @@ export const Weather = (): React.JSX.Element => {
             {location.city}
           </div>
           <div className="flex flex-col md:flex-row gap-5">
-            <Chart chartData={toChartData(location.chartData, 'temp')} />
-            <Chart chartData={toChartData(location.chartData, 'pressure')} />
-            <Chart chartData={toChartData(location.chartData, 'humidity')} />
+            <Chart
+              label={'℃'}
+              chartData={toChartData(location.chartData, 'temp')}
+              color="blue"
+            />
+            <Chart
+              label={'mb'}
+              chartData={toChartData(location.chartData, 'pressure')}
+              color="green"
+            />
+            <Chart
+              label={'%'}
+              chartData={toChartData(location.chartData, 'humidity')}
+              color="orange"
+            />
           </div>
         </div>
       ))}

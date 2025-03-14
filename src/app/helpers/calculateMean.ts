@@ -1,3 +1,4 @@
+import partial from 'lodash.partial';
 import flow from 'lodash.flow';
 
 const sum = (numbers: number[]): number => {
@@ -13,5 +14,9 @@ const round = (toRound: number): number => {
 };
 
 export const calculateMean = (numbers: number[]) => {
-  return flow(sum, divide.bind(this, numbers.length), round)(numbers);
+  return flow(
+    sum,
+    partial(divide, numbers.length),
+    round
+  )(numbers);
 };
