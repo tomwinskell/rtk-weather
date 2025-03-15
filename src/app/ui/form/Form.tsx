@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch } from '@/lib/hooks';
 import { fetchWeather } from '@/lib/slices/weather';
 import { SelectField } from './SelectField';
+import { Button } from './Button';
 
 export type Cities = { value: string; label: string };
 
@@ -46,13 +47,8 @@ export const Form = (): React.JSX.Element => {
                 <p className="text-sm text-pink-600 block md:hidden">{error}</p>
               )}
 
+              <Button disabled={!!error || selectedCity === ''}>Get Charts</Button>
 
-            <button
-              type="submit"
-              className="bg-blue-600 text-white rounded-md px-5 py-2 md:py-0 text-nowrap mt-2 md:mt-0"
-            >
-              Click Me
-            </button>
           </div>
           {error && (
             <p className="text-sm text-pink-600 hidden md:block">{error}</p>
