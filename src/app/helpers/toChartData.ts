@@ -2,7 +2,7 @@ import { ForecastObject } from '@/lib/slices/weather';
 
 type weatherParams = 'temp' | 'pressure' | 'humidity';
 
-const pushToArray = <T>(array: T[], element: T): T[] => [...array, element];
+export const pushToArray = <T>(array: T[], element: T): T[] => [...array, element];
 
 export const toChartData = (
   weather: ForecastObject[],

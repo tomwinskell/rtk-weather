@@ -5,13 +5,18 @@ import { Cities } from './Form';
 export const SelectField = ({
   options,
   handleSelect,
+  error,
 }: {
   options: Cities[];
   handleSelect: (value: string) => void;
+  error: string | null;
 }): React.JSX.Element => {
   const controlStyles = {
-    base: 'border rounded-lg bg-white hover:cursor-pointer',
-    focus: 'border-primary-600 ring-1 ring-primary-500',
+    base: clsx(
+      'border rounded-lg bg-white hover:cursor-pointer',
+      error && 'border-pink-600'
+    ),
+    focus: 'border-blue-600',
     nonFocus: 'border-gray-300 hover:border-gray-400',
   };
   const placeholderStyles = 'text-gray-500 pl-1 py-0.5';
@@ -34,23 +39,24 @@ export const SelectField = ({
   const optionStyles = {
     base: 'hover:cursor-pointer px-3 py-2 rounded',
     focus: 'bg-gray-100 active:bg-gray-200',
-    selected:
-      "after:ml-2 after:text-green-500 text-gray-500",
+    selected: 'after:ml-2 after:text-green-500 text-gray-500',
   };
   const noOptionsMessageStyles =
     'text-gray-500 p-2 bg-gray-50 border border-dashed border-gray-200 rounded-sm';
 
   return (
     <Select
-    className='w-full'
+      className="w-full"
       name="city"
       placeholder="Select or type a city name..."
       options={options}
       isClearable={true}
       isSearchable={true}
-      onChange={(event) => {
-        if (event) {
-          handleSelect(event.value);
+      onChange={(selected) => {
+        if (selected === null) {
+          handleSelect('');
+        } else {
+          handleSelect(selected.value);
         }
       }}
       unstyled
