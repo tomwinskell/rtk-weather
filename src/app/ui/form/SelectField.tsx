@@ -9,7 +9,7 @@ export const SelectField = ({
 }: {
   options: Cities[];
   handleSelect: (value: string) => void;
-  error: string | null;
+  error: boolean;
 }): React.JSX.Element => {
   const controlStyles = {
     base: clsx(
