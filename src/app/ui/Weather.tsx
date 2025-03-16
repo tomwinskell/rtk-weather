@@ -17,7 +17,7 @@ export const Weather = (): React.JSX.Element => {
             key={uuidv4()}
             className="mt-5 border border-slate-300 rounded-2xl shadow-xl p-5"
           >
-            <div className="text-center font-bold flex justify-center items-center text-xl mb-5">
+            <div className="text-center font-bold flex justify-center items-center text-xl mb-5" data-testid="chart-location">
               {location.city}
             </div>
             <div className="flex flex-col md:flex-row gap-5">

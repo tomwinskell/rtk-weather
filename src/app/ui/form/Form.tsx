@@ -13,7 +13,7 @@ export const Form = (): React.JSX.Element => {
   const dispatch = useAppDispatch();
   const [selectedCity, setSelectedCity] = useState('');
   const [error, setError] = useState<boolean>(false);
-  const errorText = 'Valid city is required.'
+  const errorText = 'Valid city is required.';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,23 +33,26 @@ export const Form = (): React.JSX.Element => {
       {cities.length === 0 ? (
         <p>Loading...</p>
       ) : (
-        <form onSubmit={handleSubmit} className=''>
+        <form onSubmit={handleSubmit} className="">
           <div className="flex flex-col md:flex-row md:gap-5">
+            <SelectField
 
-              <SelectField
-                options={cities}
-                handleSelect={(value: string) => {
-                  setSelectedCity(value);
-                  setError(false);
-                }}
-                error={error}
-              />
-              {error && (
-                <p className="text-sm text-pink-600 block md:hidden">{errorText}</p>
-              )}
+              options={cities}
+              handleSelect={(value: string) => {
+                setSelectedCity(value);
+                setError(false);
+              }}
+              error={error}
+            />
+            {error && (
+              <p className="text-sm text-pink-600 block md:hidden">
+                {errorText}
+              </p>
+            )}
 
-              <Button disabled={!!error || selectedCity === ''}>Get Charts</Button>
-
+            <Button disabled={!!error || selectedCity === ''}>
+              Get Charts
+            </Button>
           </div>
           {error && (
             <p className="text-sm text-pink-600 hidden md:block">{errorText}</p>
