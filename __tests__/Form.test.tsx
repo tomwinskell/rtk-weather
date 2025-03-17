@@ -13,7 +13,7 @@ describe('Form', () => {
       })
     ).toBeDisabled();
   });
-  
+
   it('button is enabled when valid city is selected', async () => {
     const user = userEvent.setup();
     const city = 'Montreal';

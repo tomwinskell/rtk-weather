@@ -36,7 +36,6 @@ export const Form = (): React.JSX.Element => {
         <form onSubmit={handleSubmit} className="">
           <div className="flex flex-col md:flex-row md:gap-5">
             <SelectField
-
               options={cities}
               handleSelect={(value: string) => {
                 setSelectedCity(value);
