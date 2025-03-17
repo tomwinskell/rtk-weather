@@ -1,3 +1,29 @@
+## Weather Project
+
+Created as an evaluation for Parsity. If you have any questions about this project or the program in general, visit [parsity.io](https://parsity.io/) or email hello@parsity.io.
+
+## Functionality
+
+- On page load button should be disabled.
+- User has access to a searchable select element.
+- User can type to find a city on the specified list of cities.
+- When a valid city is selected, button is enabled and user can get charts.
+- Charts loaded displaying temperature, humidity and pressure.
+- User can search for an additional city. 3 cities will be held in app memory.
+
+## Challenges
+
+- Project had to use Redux Toolkit, requesting data from the OpenWeather api.
+- Data is stored using Redux Toolkit store. Provider provides state to all components in the app.
+- Jest used for integration tests.
+- Cypress used for e2e tests.
+- TypeScript used across the project. It was challenging to type the API in the Redux store. The types for Redux Toolkit were obtained from the Redux toolkit docs.
+- Ensuring that the last city the user queries is at the top of the list was difficult, since the data is added to an array. The data therefore needed to be mapped in reverse.
+- React-Select was used for the select element which is searchable and clearable. Styling this with TailwindCSS was difficult. It's difficult because it's necessary to completely clear the select element of all styling and then rebuild it. The code for this was borrowed from [this article](https://www.jussivirtanen.fi/writing/styling-react-select-with-tailwind) and modified slightly for me needs. I don't know if I would use React-Select again, probably would use something like ShadCN or similar.
+- It was also difficult to select the select element when implementing testing. I had to use data-id in the end to identify it. This worked well with Cypress but not Jest.
+- React, Cypress and User Testing Library was also used with Jest and Cypress. The docs are not as helpful as I would have liked.
+- It was interesting to bring some functional programming elements to this app. Using lodash `partial` and `flow`. `partial` sets an argument in a function so that it can then be called as a unary function. `flow` creates a function using unary functions, passing the result of the previous to the nest.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
@@ -16,21 +42,6 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deployed on Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[Live Site on Vercel](https://rtk-weather-ochre.vercel.app/)
